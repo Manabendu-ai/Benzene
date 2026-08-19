@@ -1,2 +1,3 @@
-fastapi
+fastapi[standard]
 kafka-python-ng
+pydantic
