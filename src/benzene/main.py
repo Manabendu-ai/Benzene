@@ -1,1 +1,0 @@
-print("Initialized Python Project with uv!")
