@@ -1,6 +1,6 @@
 from kafka import KafkaProducer
 from fastapi import HTTPException
-from producer_schema import ProducerMessage
+from .producer_schema import ProducerMessage
 import json
 
 KAFKA_BROKER = "localhost:9092"
@@ -19,7 +19,7 @@ producer = KafkaProducer(
 
 def produce_kafka_message(messsage: ProducerMessage):
     try:
-        producer.send(KAFKA_TOPIC, json.dumps({'message':messsage}))
+        producer.send(KAFKA_TOPIC, json.dumps({'message':messsage.message}))
         producer.flush()
     except Exception as err:
         print(err)
