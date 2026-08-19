@@ -68,3 +68,13 @@ async def trigger_polling():
     return {
         "status" : "Kafka Polling already triggered!"
     }
+
+@app.get("/benzene/consumer/stop-trigger", tags=["Benzene Consumer"])
+async def stop_trigger():
+    stop_polling_event.set()
+    if task_list:
+        task_list.pop()
+
+    return {
+         "status" : "Kafka Polling stopped!"
+    }
