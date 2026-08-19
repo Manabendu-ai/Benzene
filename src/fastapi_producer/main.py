@@ -31,7 +31,13 @@ async def lifespan(app: FastAPI):
 
     yield
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(
+    title="Benzene",
+    description="An Event Driven Architechture",
+    version="1.0.0",
+    lifespan=lifespan
+)
+
 
 @app.post("/benzene/produce/message", tags=['Benzene Producer'])
 async def produce_message(message : ProducerMessage, background_task : BackgroundTasks):
