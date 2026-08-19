@@ -13,3 +13,12 @@ app = FastAPI(
     description="An Event Driven Architechture",
     version="1.0.0",
 )
+
+def json_deserializer(value):
+    if value is None:
+        return None
+    try:
+        return json.loads(value.decode('utf-8'))
+    except Exception as e:
+        print("Unable to decode!")
+        return None
