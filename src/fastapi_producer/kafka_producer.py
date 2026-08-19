@@ -6,3 +6,6 @@ import json
 KAFKA_BROKER = "localhost:9092"
 KAFKA_TOPIC = "benzene-topic"
 PRODUCER_CLIENT_ID = "benzene_producer"
+
+def serializer(message):
+    return json.dumps(message).encode()
