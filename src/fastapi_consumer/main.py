@@ -35,3 +35,22 @@ def create_kafka_consumer():
     )
 
     return consumer
+
+async def poll_consumer(consumer: KafkaConsumer):
+    try:
+        while not stop_polling_event.is_set():
+            print("Trying to poll again!")
+            records = consumer.poll(3000, 500)
+            if records:
+                for record in records.values():
+                    for message in record:
+                        msg = json.loads(message.value).get("message")
+                        print(f"Recieved the message : {msg}\nFrom the Topic : {message.topic}")                    
+            await asyncio.sleep(2)
+    except Exception as e:
+        print(f"Exception in Consuming {e}")
+    finally:
+        print(f"[INFO] closing consumer....")
+        consumer.close()
+
+    
