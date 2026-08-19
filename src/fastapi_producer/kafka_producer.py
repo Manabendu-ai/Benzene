@@ -9,3 +9,10 @@ PRODUCER_CLIENT_ID = "benzene_producer"
 
 def serializer(message):
     return json.dumps(message).encode()
+
+producer = KafkaProducer(
+    api_version=(7,4,10),
+    bootstrap_servers=KAFKA_BROKER,
+    value_serializer=serializer,
+    client_id=PRODUCER_CLIENT_ID
+)
