@@ -53,4 +53,18 @@ async def poll_consumer(consumer: KafkaConsumer):
         print(f"[INFO] closing consumer....")
         consumer.close()
 
-    
+task_list = []
+@app.get("/benzene/consumer/trigger", tags=["Benzene Consumer"])
+async def trigger_polling():
+    if not task_list:
+        stop_polling_event.clear()
+        consumer = create_kafka_consumer()
+        task = asyncio.create_task(poll_consumer(consumer=consumer))
+        task_list.append(task)
+
+        return {
+            "status" : "Kafka Polling has Started!"
+        }
+    return {
+        "status" : "Kafka Polling already triggered!"
+    }
