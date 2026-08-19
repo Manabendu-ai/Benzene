@@ -16,3 +16,11 @@ producer = KafkaProducer(
     value_serializer=serializer,
     client_id=PRODUCER_CLIENT_ID
 )
+
+def produce_kafka_message(messsage: ProducerMessage):
+    try:
+        producer.send(KAFKA_TOPIC, json.dumps({'message':messsage}))
+        producer.flush()
+    except Exception as err:
+        print(err)
+        raise HTTPException(status_code=500, detail="Failed to send the message")
