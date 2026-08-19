@@ -30,3 +30,16 @@ async def lifespan(app: FastAPI):
         )
 
     yield
+
+app = FastAPI(lifespan=lifespan)
+
+@app.post("/benzene/produce/message", tags=['Benzene Producer'])
+async def produce_message(message : ProducerMessage, background_task : BackgroundTasks):
+    background_task.add_task(produce_kafka_message, message)
+    return {
+        "app": {
+            "name" : "benzene",
+            "message" : message,
+            "response" : "Message Recieved, ThankYou for sending Message through Benzene!"
+        }
+    }
