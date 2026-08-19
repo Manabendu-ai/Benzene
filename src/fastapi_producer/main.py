@@ -32,7 +32,7 @@ async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(
-    title="Benzene",
+    title="Benzene-Producer",
     description="An Event Driven Architechture",
     version="1.0.0",
     lifespan=lifespan
